@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard - PrivacyDocControl</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">PrivacyDocControl</div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a th:href="@{/dashboard}">Dashboard</a></li>
+                        <li><a th:href="@{/upload}">Upload Document</a></li>
+                        <li><a th:href="@{/staff/view}">Staff Portal</a></li>
+                        <li><a th:href="@{/logout}">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Welcome to Your Dashboard</h1>
+        
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-number" th:text="${totalDocuments}">0</div>
+                <div class="stat-label">Total Documents</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" th:text="${activeTokens}">0</div>
+                <div class="stat-label">Active Tokens</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" th:text="${expiredTokens}">0</div>
+                <div class="stat-label">Expired Tokens</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Quick Actions</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <a th:href="@{/upload}" class="btn btn-primary">Upload New Document</a>
+                <a th:href="@{/staff/view}" class="btn btn-secondary">Access Staff Portal</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Your Recent Documents</h2>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Upload Date</th>
+                        <th>Token</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="doc : ${documents}">
+                        <td th:text="${doc.fileName}">Document.pdf</td>
+                        <td th:text="${#temporals.format(doc.uploadedAt, 'yyyy-MM-dd HH:mm')}">2024-01-01</td>
+                        <td th:text="${doc.token}">ABC123</td>
+                        <td>
+                            <span th:if="${doc.isTokenExpired()}" class="alert alert-warning">Expired</span>
+                            <span th:unless="${doc.isTokenExpired()}" class="alert alert-success">Active</span>
+                        </td>
+                        <td>
+                            <a th:href="@{/documents/view/{id}(id=${doc.id})}" class="btn btn-primary">View</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

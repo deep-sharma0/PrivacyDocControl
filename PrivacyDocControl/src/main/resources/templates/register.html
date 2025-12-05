@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register - PrivacyDocControl</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Embedded CSS -->
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --primary-dark: #357ABD;
+            --bg-color: #f4f6f8;
+            --card-bg: #fff;
+            --text-color: #333;
+            --text-secondary: #666;
+            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            margin: 60px auto;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 25px;
+        }
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s ease-in-out;
+        }
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+        .note {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Create Account</h2>
+            <form th:action="@{/register}" th:object="${user}" method="post">
+                <label for="email">Email</label>
+                <input type="email" id="email" th:field="*{email}" required />
+
+                <label for="password">Password</label>
+                <input type="password" id="password" th:field="*{password}" required />
+
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required />
+
+                <label for="role">Account Type</label>
+                <select id="role" th:field="*{role}" required>
+                    <option value="" disabled selected>Select account type</option>
+                    <option value="USER">User</option>
+                    <option value="STAFF">Staff</option>
+                </select>
+
+                <button type="submit">Register</button>
+            </form>
+            <p class="note">Already have an account? <a th:href="@{/login}">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>

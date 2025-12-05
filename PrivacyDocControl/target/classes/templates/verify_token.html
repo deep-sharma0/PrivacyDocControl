@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Verify Token</title></head>
+<body>
+    <h2>Enter Document Token</h2>
+    <form th:action="@{/staff/view}" method="post">
+        <input type="text" name="token" required />
+        <button type="submit">View Document</button>
+    </form>
+    <p th:if="${error}" style="color:red;" th:text="${error}"></p>
+</body>
+</html>

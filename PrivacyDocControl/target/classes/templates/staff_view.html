@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Document View - PrivacyDocControl</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">PrivacyDocControl - Document View</div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a th:href="@{/staff/view}">Back to Portal</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Document Details</h1>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <div>
+                    <h3>File Information</h3>
+                    <p><strong>File Name:</strong> <span th:text="${doc.fileName}">document.pdf</span></p>
+                    <p><strong>Uploaded:</strong> <span th:text="${#temporals.format(doc.uploadedAt, 'yyyy-MM-dd HH:mm')}">2024-01-01</span></p>
+                    <p><strong>Expires:</strong> <span th:text="${#temporals.format(doc.expiresAt, 'yyyy-MM-dd HH:mm')}">2024-01-01 15:30</span></p>
+                    <p><strong>Time Remaining:</strong> <span th:text="${minutesRemaining}">15</span> minutes</p>
+                </div>
+                
+                <div>
+                    <h3>Document Preview</h3>
+                    <div style="border: 1px solid var(--border-color); padding: 1rem; border-radius: 0.5rem; background: var(--background-color);">
+                        <p style="color: var(--text-secondary); text-align: center;">
+                            Document: <strong th:text="${doc.fileName}">document.pdf</strong>
+                        </p>
+                        <p style="color: var(--text-secondary); text-align: center;">
+                           <a th:href="@{/files/{token}(token=${doc.token})}" target="_blank" class="btn btn-info">View Document</a>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Actions</h2>
+            </div>
+            
+            <form th:action="@{/staff/print}" method="post" style="display:inline;">
+    <!-- CSRF token (recommended) -->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+    <!-- token for the document -->
+    <input type="hidden" name="token" th:value="${doc.token}" />
+
+    <button type="submit" class="btn btn-danger"
+            onclick="return confirm('Are you sure you want to print and delete this document?')">
+        Print &amp; Delete Document
+    </button>
+</form>
+
+        </div>
+    </main>
+</body>
+</html>

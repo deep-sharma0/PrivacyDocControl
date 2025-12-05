@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Staff Portal - PrivacyDocControl</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">PrivacyDocControl - Staff Portal</div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a th:href="@{/dashboard}">Dashboard</a></li>
+                        <li><a th:href="@{/logout}">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Staff Document Access</h1>
+                <p style="color: var(--text-secondary);">Enter the document token to access and print documents</p>
+            </div>
+
+            <form th:action="@{/staff/view}" method="post" class="card">
+                <div class="form-group">
+                    <label class="form-label">Document Token</label>
+                    <input type="text" name="token" class="form-input" placeholder="Enter 6-digit token" required />
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Access Document</button>
+            </form>
+
+            <div th:if="${error}" class="alert alert-error">
+                <strong>Error:</strong> <span th:text="${error}">Invalid token</span>
+            </div>
+            
+            <div th:if="${success}" class="alert alert-success">
+                <strong>Success:</strong> <span th:text="${success}">Document found</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Instructions</h2>
+            </div>
+            <ul style="color: var(--text-secondary); line-height: 1.8;">
+                <li>Enter the 6-digit token provided by the document owner</li>
+                <li>Documents expire after 15 minutes from upload time</li>
+                <li>Each document can only be printed once</li>
+                <li>After printing, the document will be automatically deleted</li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>
