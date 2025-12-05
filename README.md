@@ -1,10 +1,10 @@
-PrivacyDocControl
+#PrivacyDocControl
 
 A document management system built for cyber cafés where users can upload documents securely and get a one-time token. Staff can view and print the document once using the token. After printing, the document is deleted automatically.
 
 This project was built to solve a real privacy issue in cyber cafés — users usually share their personal documents through WhatsApp or local PCs, which is risky. This system avoids that.
 
-Features
+#Features
 
 Secure document upload
 
@@ -20,7 +20,7 @@ Session-based access
 
 Basic admin controls (if applicable)
 
-Tech Stack
+#Tech Stack
 
 Backend: Spring Boot
 Frontend (current): Thymeleaf
@@ -29,7 +29,7 @@ Database: PostgreSQL
 Storage: Local file storage
 Security: Cookie-based session + file type validation
 
-How It Works
+#How It Works
 
 User uploads a document
 
@@ -41,32 +41,14 @@ Staff enters token → views document
 
 After printing, document is removed from storage
 
-Project Structure
+#Project Structure
 backend/
  ├─ src/
 frontend-thymeleaf/
 docs/
 screenshots/   (add later)
 
-Setup
+#Setup
 Backend
 mvn clean install
 mvn spring-boot:run
-
-Frontend
-
-Currently using Thymeleaf templates located in src/main/resources/templates.
-
-React version will be added under react-frontend/.
-
-Roadmap
-
-Move UI from Thymeleaf to React
-
-Better access logs
-
-Role-based dashboard
-
-Docker setup
-
-Screenshots
