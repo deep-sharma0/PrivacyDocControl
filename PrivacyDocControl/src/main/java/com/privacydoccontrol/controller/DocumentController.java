@@ -22,8 +22,7 @@ public class DocumentController {
     private DocumentRepository documentRepository;
 
     // Serve file by token with 15-minute expiration
-    @SuppressWarnings("null")
-	@GetMapping("/files/{token}")
+    @GetMapping("/files/{token}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String token) throws IOException {
         Document document = documentRepository.findByToken(token);
